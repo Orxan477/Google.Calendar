@@ -1,27 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\orxan\\OneDrive\\Desktop\\Google.Calendar\\Google.Calendar\\Google.Calendar.csproj": {}
+    "/Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/Google.Calendar.csproj": {}
   },
   "projects": {
-    "C:\\Users\\orxan\\OneDrive\\Desktop\\Google.Calendar\\Google.Calendar\\Google.Calendar.csproj": {
+    "/Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/Google.Calendar.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\orxan\\OneDrive\\Desktop\\Google.Calendar\\Google.Calendar\\Google.Calendar.csproj",
+        "projectUniqueName": "/Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/Google.Calendar.csproj",
         "projectName": "Google.Calendar",
-        "projectPath": "C:\\Users\\orxan\\OneDrive\\Desktop\\Google.Calendar\\Google.Calendar\\Google.Calendar.csproj",
-        "packagesPath": "C:\\Users\\orxan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\orxan\\OneDrive\\Desktop\\Google.Calendar\\Google.Calendar\\obj\\",
+        "projectPath": "/Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/Google.Calendar.csproj",
+        "packagesPath": "/Users/orkhanganbarov/.nuget/packages/",
+        "outputPath": "/Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\orxan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/orkhanganbarov/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/sdk/7.0.308/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -48,6 +47,10 @@
               "target": "Package",
               "version": "[1.67.0.3297, )"
             },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.16, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
@@ -72,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.308/RuntimeIdentifierGraph.json"
         }
       }
     }
