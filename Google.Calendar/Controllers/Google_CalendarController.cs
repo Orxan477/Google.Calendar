@@ -17,7 +17,25 @@ namespace Google.Calendar.Controllers
     public class Google_CalendarController : ControllerBase
     {
         private static readonly HttpClient client = new HttpClient();
-        private static readonly string[] Scopes = { CalendarService.Scope.Calendar };
+        private static readonly string[] Scopes = {
+    "https://www.googleapis.com/auth/calendar",
+    "https://www.googleapis.com/auth/calendar.events",
+    "https://www.googleapis.com/auth/calendar.events.readonly",
+    "https://www.googleapis.com/auth/calendar.readonly",
+    "https://www.googleapis.com/auth/calendar.settings.readonly",
+    "https://www.googleapis.com/auth/calendar.app.created",
+    "https://www.googleapis.com/auth/calendar.calendars",
+    "https://www.googleapis.com/auth/calendar.calendars.readonly",
+    "https://www.googleapis.com/auth/calendar.acls",
+    "https://www.googleapis.com/auth/calendar.acls.readonly",
+    "https://www.googleapis.com/auth/calendar.events.owned",
+    "https://www.googleapis.com/auth/calendar.events.owned.readonly",
+    "https://www.googleapis.com/auth/calendar.events.public.readonly",
+    "https://www.googleapis.com/auth/calendar.calendarlist",
+    "https://www.googleapis.com/auth/calendar.calendarlist.readonly",
+    "https://www.googleapis.com/auth/calendar.freebusy"
+};
+
         private static readonly string ApplicationName = "Web client 1";
 
         //[HttpGet("")]
