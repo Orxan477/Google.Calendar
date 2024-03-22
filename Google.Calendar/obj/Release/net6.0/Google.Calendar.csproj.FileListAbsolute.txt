@@ -231,3 +231,4 @@
 /Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/bin/Release/net6.0/runtimes/win/lib/net6.0/System.Drawing.Common.dll
 /Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/bin/Release/net6.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
 /Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/bin/Release/net6.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
+/Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/bin/Release/net6.0/token.json

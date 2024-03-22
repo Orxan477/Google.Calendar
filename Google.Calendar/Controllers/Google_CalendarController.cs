@@ -33,51 +33,55 @@ namespace Google.Calendar.Controllers
     "https://www.googleapis.com/auth/calendar.events.public.readonly",
     "https://www.googleapis.com/auth/calendar.calendarlist",
     "https://www.googleapis.com/auth/calendar.calendarlist.readonly",
-    "https://www.googleapis.com/auth/calendar.freebusy"
+    "https://www.googleapis.com/auth/calendar.freebusy",
+            CalendarService.Scope.Calendar,
+    CalendarService.Scope.CalendarEvents,
+    "https://www.googleapis.com/auth/meetings.space.created",
+    "https://www.googleapis.com/auth/meetings.space.readonly"
 };
 
         private static readonly string ApplicationName = "Web client 1";
 
-        //[HttpGet("")]
-        //public async Task<string> LoginWithGoogle()
-        //{
-        //    var query = System.Web.HttpUtility.ParseQueryString(string.Empty);
-        //    query["client_id"] = "1061994404638-5v9sp228ndn3h97paqi37h5jmaddsn9h.apps.googleusercontent.com";
-        //    query["redirect_uri"] = "http://localhost:5179/auth/oauth2callback";
-        //    query["scope"] = "email profile";
-        //    query["response_type"] = "code";
+        [HttpGet("")]
+        public async Task<string> LoginWithGoogle()
+        {
+            var query = System.Web.HttpUtility.ParseQueryString(string.Empty);
+            query["client_id"] = "1061994404638-5v9sp228ndn3h97paqi37h5jmaddsn9h.apps.googleusercontent.com";
+            query["redirect_uri"] = "http://localhost:5179/auth/oauth2callback";
+            query["scope"] = "email profile " + string.Join(" ", Scopes); // Boşluk ekledik
+            query["response_type"] = "code";
 
-        //    var uriBuilder = new UriBuilder("https://accounts.google.com/o/oauth2/auth");
-        //    uriBuilder.Query = query.ToString();
-        //    return uriBuilder.Uri.ToString();
-        //}
+            var uriBuilder = new UriBuilder("https://accounts.google.com/o/oauth2/auth");
+            uriBuilder.Query = query.ToString();
+            var authUrl = uriBuilder.Uri.ToString();
+            return authUrl;
+        }
+        [HttpGet("/auth/oauth2callback")]
+        public async Task<string> GetGoogleToken()
+        {
+            var queryString = HttpContext.Request.QueryString.Value;
 
-        //[HttpGet("/auth/oauth2callback")]
-        //public async Task<string> GetGoogleToken()
-        //{
-        //    var queryString = HttpContext.Request.QueryString.Value;
+            var queryParams = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(queryString);
 
-        //    // Query string içindeki parametreleri ayır ve oku
-        //    var queryParams = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(queryString);
+            // Parametrelerin değerlerini al
+            string code = queryParams["code"];
+            return code;
+            //return code;
+            var flow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
+            {
+                ClientSecrets = new ClientSecrets
+                {
+                    ClientId = "1061994404638-5v9sp228ndn3h97paqi37h5jmaddsn9h.apps.googleusercontent.com",
+                    ClientSecret = "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"
+                },
+                Scopes = Scopes,
+                DataStore = new FileDataStore("token.json")
+            });
 
-        //    // Parametrelerin değerlerini al
-        //    string code = queryParams["code"];
-        //    var postContent = new FormUrlEncodedContent(new[]
-        //    {
-        //        new KeyValuePair<string, string>("code", code),
-        //        new KeyValuePair<string, string>("client_id", "1061994404638-5v9sp228ndn3h97paqi37h5jmaddsn9h.apps.googleusercontent.com"),
-        //        new KeyValuePair<string, string>("client_secret", "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"),
-        //        new KeyValuePair<string, string>("redirect_uri", "http://localhost:5179/auth/oauth2callback"),
-        //        new KeyValuePair<string, string>("grant_type", "authorization_code"),
-        //    });
+            var response = await flow.ExchangeCodeForTokenAsync("user", code, "http://localhost:5179/auth/oauth2callback", CancellationToken.None);
 
-        //    var response = await client.PostAsync("https://accounts.google.com/o/oauth2/token", postContent);
-        //    var responseContent = await response.Content.ReadAsStringAsync();
-        //    dynamic tokenData = JsonConvert.DeserializeObject(responseContent);
-        //    var token = tokenData.access_token;
-        //    return token;
-        //}
-
+            //return new UserCredential(flow, "user", response);
+        }
         [HttpPost("/create-event")]
         public async Task<IActionResult> CreateEvent([FromBody] EventInfo eventInfo,string code)
         {
@@ -86,16 +90,17 @@ namespace Google.Calendar.Controllers
 
                 // Parametrelerin değerlerini al
                 // Google API'ya erişim için UserCredential nesnesini oluştur
+                //var credential = await GetUserCredential(code);
+                //return Ok(credential);
                 UserCredential credential = await GetUserCredential(code);
                 //return credential;
                 //CalendarService nesnesini oluştur ve erişim yetkilendirmesini sağla
-               var service = new CalendarService(new BaseClientService.Initializer()
-               {
-                   HttpClientInitializer = credential,
-                   ApplicationName = ApplicationName,
-               });
+                var service = new CalendarService(new BaseClientService.Initializer()
+                {
+                    HttpClientInitializer = credential,
+                    ApplicationName = ApplicationName,
+                });
 
-                // Yeni bir etkinlik nesnesi oluştur
                 var newEvent = new Event()
                 {
                     Summary = eventInfo.Summary,
@@ -112,21 +117,35 @@ namespace Google.Calendar.Controllers
                         TimeZone = eventInfo.TimeZone,
                     },
                     Attendees = eventInfo.Attendees,
+                    Reminders = new Event.RemindersData
+                    {
+                        UseDefault = false,
+                        Overrides = new List<EventReminder>
+        {
+            new EventReminder { Method = "email", Minutes = 30 }
+        }
+                    },
                     ConferenceData = new ConferenceData()
                     {
                         CreateRequest = new CreateConferenceRequest()
                         {
-                            RequestId = Guid.NewGuid().ToString() // Provide a unique ID
+                            RequestId = Guid.NewGuid().ToString(),
+                            ConferenceSolutionKey = new ConferenceSolutionKey()
+                            {
+                                Type = "hangoutsMeet" // Google Meet konferansı kullanmak için
+                            }
                         }
                     }
                 };
 
-                //Etkinliği oluştur
+                // Etkinliği oluştur
                 EventsResource.InsertRequest request = service.Events.Insert(newEvent, "primary");
                 Event createdEvent = request.Execute();
+                return Ok(createdEvent.HangoutLink);
 
-                return Ok("Event created: " + createdEvent.HtmlLink);
+
             }
+
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
@@ -148,23 +167,13 @@ namespace Google.Calendar.Controllers
                     DataStore = new FileDataStore("token.json")
                 });
 
-            Uri authUri = flow.CreateAuthorizationCodeRequest("http://localhost:5179/auth/oauth2callback").Build();
-            Google.Apis.Auth.OAuth2.Responses.TokenResponse response = await flow.ExchangeCodeForTokenAsync(
-                "user", code, "http://localhost:5179/auth/oauth2callback", CancellationToken.None);
+            //Uri authUri = flow.CreateAuthorizationCodeRequest("http://localhost:5179/auth/oauth2callback").Build();
+            //Google.Apis.Auth.OAuth2.Responses.TokenResponse response = await flow.ExchangeCodeForTokenAsync(
+            //    "user", code, "http://localhost:5179/auth/oauth2callback", CancellationToken.None);
+            //return authUri;
+            var response = await flow.ExchangeCodeForTokenAsync("user", code, "http://localhost:5179/auth/oauth2callback", CancellationToken.None);
 
             return new UserCredential(flow, "user", response);
-            // Load credentials from JSON file
-            using (var stream = new FileStream("cre.json", FileMode.Open, FileAccess.Read))
-            {
-                string credPath = "token.json";
-                credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None,
-                    new Apis.Util.Store.FileDataStore(credPath, true));
-            }
-            return credential;
         }
     }
 }

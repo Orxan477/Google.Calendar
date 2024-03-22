@@ -1,38 +1,33 @@
 ﻿<Properties StartupConfiguration="{3FBFADFF-31F5-4100-8308-821210699D31}|Default">
-  <MonoDevelop.Ide.ItemProperties.Google.Calendar PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/Controllers/Google_CalendarController.cs" relfile="Google.Calendar/Controllers/Google_CalendarController.cs" line="65" column="1" />
-      <Breakpoint file="/Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/Controllers/Google_CalendarController.cs" relfile="Google.Calendar/Controllers/Google_CalendarController.cs" line="119" column="1" />
-    </BreakpointStore>
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Google.Calendar PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Google.Calendar/Controllers/Google_CalendarController.cs">
     <Files>
-      <File FileName="Google.Calendar/Controllers/GoogleController.cs" Line="36" Column="69" />
-      <File FileName="Google.Calendar/Program.cs" Line="6" Column="1" />
-      <File FileName="Google.Calendar/appsettings.json" Line="1" Column="1" />
-      <File FileName="Google.Calendar/Controllers/Google_CalendarController.cs" Line="21" Column="71" />
-      <File FileName="Google.Calendar/Models/UserInfo.cs" Line="8" Column="48" />
-      <File FileName="Google.Calendar/Models/User.cs" Line="10" Column="40" />
-      <File FileName="Google.Calendar/cre.json" Line="9" Column="66" />
-      <File FileName="Google.Calendar/Properties/launchSettings.json" Line="16" Column="65" />
-      <File FileName="Google.Calendar/WeatherForecast.cs" Line="1" Column="1" />
+      <File FileName="Google.Calendar/Controllers/Google_CalendarController.cs" Line="139" Column="19" />
+      <File FileName="Google.Calendar/cre.json" Line="9" Column="25" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Google.Calendar" expanded="True">
-            <Node name="Google.Calendar" expanded="True">
-              <Node name="Controllers" expanded="True" />
+            <Node name="Google.Calendar">
+              <Node name="Controllers" expanded="True">
+                <Node name="Google_CalendarController.cs" selected="True" />
+              </Node>
               <Node name="Models" expanded="True" />
               <Node name="Properties" expanded="True" />
+              <Node name="Services" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/Controllers/Google_CalendarController.cs" relfile="Google.Calendar/Controllers/Google_CalendarController.cs" line="158" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
 </Properties>
