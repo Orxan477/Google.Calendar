@@ -272,3 +272,4 @@ C:/Users/orxan/OneDrive/Desktop/Google.Calendar/Google.Calendar/bin/Debug/net6.0
 /Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/obj/Debug/net6.0/Google.Calendar.pdb
 /Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/obj/Debug/net6.0/Google.Calendar.genruntimeconfig.cache
 /Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/obj/Debug/net6.0/ref/Google.Calendar.dll
+/Users/orkhanganbarov/Desktop/Google.Calendar/Google.Calendar/bin/Debug/net6.0/token.json
