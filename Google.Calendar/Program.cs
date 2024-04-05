@@ -6,12 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
+builder.Services.AddHttpClient();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ITempDataDictionaryFactory, TempDataDictionaryFactory>();
 builder.Services.AddScoped<IGoogleService, GoogleService>();
 var app = builder.Build();
 
