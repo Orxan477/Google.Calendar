@@ -47,7 +47,7 @@ namespace Google.Calendar.Controllers
         {
             var query = System.Web.HttpUtility.ParseQueryString(string.Empty);
             query["client_id"] = "1061994404638-5v9sp228ndn3h97paqi37h5jmaddsn9h.apps.googleusercontent.com";
-            query["redirect_uri"] = "http://localhost:5179/auth/oauth2callback";
+            query["redirect_uri"] = "http://localhost:7135/auth/oauth2callback";
             query["scope"] = "email profile " + string.Join(" ", Scopes); // Boşluk ekledik
             query["response_type"] = "code";
 
@@ -92,6 +92,7 @@ namespace Google.Calendar.Controllers
                 // Google API'ya erişim için UserCredential nesnesini oluştur
                 //var credential = await GetUserCredential(code);
                 //return Ok(credential);
+
                 UserCredential credential = await GetUserCredential(code);
                 //return credential;
                 //CalendarService nesnesini oluştur ve erişim yetkilendirmesini sağla
@@ -141,7 +142,7 @@ namespace Google.Calendar.Controllers
                 // Etkinliği oluştur
                 EventsResource.InsertRequest request = service.Events.Insert(newEvent, "primary");
                 Event createdEvent = request.Execute();
-                return Ok(createdEvent.HangoutLink);
+                return Ok(createdEvent);
 
 
             }
@@ -167,11 +168,11 @@ namespace Google.Calendar.Controllers
                     DataStore = new FileDataStore("token.json")
                 });
 
-            //Uri authUri = flow.CreateAuthorizationCodeRequest("http://localhost:5179/auth/oauth2callback").Build();
-            //Google.Apis.Auth.OAuth2.Responses.TokenResponse response = await flow.ExchangeCodeForTokenAsync(
-            //    "user", code, "http://localhost:5179/auth/oauth2callback", CancellationToken.None);
+            Uri authUri = flow.CreateAuthorizationCodeRequest("http://localhost:7135/auth/oauth2callback").Build();
+            Google.Apis.Auth.OAuth2.Responses.TokenResponse response = await flow.ExchangeCodeForTokenAsync(
+                "user", code, "http://localhost:7135/auth/oauth2callback", CancellationToken.None);
             //return authUri;
-            var response = await flow.ExchangeCodeForTokenAsync("user", code, "http://localhost:5179/auth/oauth2callback", CancellationToken.None);
+            //var response = await flow.ExchangeCodeForTokenAsync("user", code, "http://localhost:7135/auth/oauth2callback", CancellationToken.None);
 
             return new UserCredential(flow, "user", response);
         }
